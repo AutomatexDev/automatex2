@@ -4,12 +4,6 @@
 % classe base para o novo formato
 \LoadClass[12pt,twoside]{article} % twoside permite que páginas pares e ímpares sejam diferentes
 
-% https://en.wikibooks.org/wiki/LaTeX/Document_Structure#Document_classes
-%% Pacotes de linguagem pt-br
-\RequirePackage{luatextra}
-\RequirePackage[brazil]{babel}
-\defaultfontfeatures{Ligatures=TeX}
-
 %% Pacotes de simbolos matemáticos
 \RequirePackage{amsmath}
 \RequirePackage{amsfonts}
@@ -17,38 +11,49 @@
 
 %% Personalização da fonte
 %  catálogo de fontes em LaTeX em http://www.tug.dk/FontCatalogue/
-\usepackage{fontspec}
-\usepackage{unicode-math}
+\RequirePackage{fontspec}
+\RequirePackage{unicode-math}
+\RequirePackage[brazil]{babel}
 \setmainfont[Path=./fonts/,
     BoldItalicFont=font_z.ttf,
     BoldFont      =font_b.ttf,
     ItalicFont    =font_i.ttf]{font.ttf}   % TODO: caracteres acentuados não estão funcionando
-\setmathfont[Path=./fonts/]{latinmodern-math.otf} % TODO: configurar fonte matemática para negrito e itálico
-                                           % TODO: encontrar uma fonte matemática que pareça com a fonte de texto
+% \setmathfont[
+%    range=\mathbfsfit/{greek,Greek,latin,Latin},
+%    Path=./fonts/,
+%    Extension=.otf]{./fonts/euler.otf} % TODO: configurar fonte matemática para negrito e itálico
+%                                       % TODO: encontrar uma fonte matemática que pareça com a fonte de texto
 
 %% Pacotes de referências e figuras
 \RequirePackage{natbib}       % define referências bibliográficas para usar com bibtex
 \RequirePackage{url}          % permite utilização de urls
-\RequirePackage{hyperref}     % destaca links, citações e referências cruzadas
 \RequirePackage{graphicx}     % inserção de imagens
 \RequirePackage{parskip}      % espaço extra entre parágrafos
+% \RequirePackage{flafter}      % figura depois da citação
+% \RequirePackage{hyperref}     % destaca links, citações e referências cruzadas
+% \usepackage{calc}           % TESTE: é necessário para o comando fbox
 
 %% Formatação e layout
 \RequirePackage[top=1in, bottom=1.8in, left=1in, right=1in]{geometry}
 \RequirePackage[letterspace=100]{microtype}
 \RequirePackage{fancyhdr}
+\RequirePackage{titlesec}
+\RequirePackage{natbib}                         % bibliografia
+\RequirePackage[acronym]{glossaries}            % lista de abreviações e símbolos
+
+%% Comandos e variáveis personalizadas
+\newcommand*{\supervisor}[1]{\gdef\@supervisor{#1}}
+\newcommand*{\@supervisor}{\string\supervisor}
+\newcommand*{\shorttitle}[1]{\gdef\@shorttitle{#1}}
+\newcommand*{\@shorttitle}{\string\shorttitle}
 
 %% Cabeçalhos e rodapés
 \pagestyle{fancy}                                                           % garante cabeçalho personalizado
 \fancyhead[LE,RO]{\thepage\vspace{.4cm}}                                    % número da página
 \fancyhead[LO]{\itshape Escola de Engenharia/UFRGS - \@author\vspace{.4cm}}
-\fancyhead[RE]{\itshape\@title\vspace{.4cm}}
+\fancyhead[RE]{\itshape\@shorttitle\vspace{.4cm}}
 \fancyfoot[C]{ }
 % vspace após cada opção garante o espaçamento entre os textos e a linha divisória do cabeçalho
-
-%% Comandos e variáveis personalizadas
-\newcommand*{\supervisor}[1]{\gdef\@supervisor{#1}}
-\newcommand*{\@supervisor}{\string\supervisor}
 
 \renewcommand{\maketitle}{ % folha de rosto
   \begin{titlepage}
@@ -57,27 +62,28 @@
       \centering
       \includegraphics[height=.13\textheight]{imagens/logo_ufrgs}
     \end{minipage}
-    \hspace{.02\textwidth}
-    \begin{minipage}[c]{.6\textwidth}
+    \begin{minipage}[c]{.65\textwidth}
       \centering
       UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL \\[.2cm]
       ESCOLA DE ENGENHARIA \\[.2cm]
-      TRABALHO DE CONCLUSAO EM ENGENHARIA DE CONTROLE E AUTOMACAO
+      TRABALHO DE CONCLUSÃO EM ENGENHARIA DE CONTROLE E AUTOMAÇÃO
     \end{minipage}
     \hfill
     \begin{minipage}[c]{.2\textwidth}
       \centering          % nada aqui porque no modelo não tem nada TODO: botamos o logo da EE aqui?
-      \hspace{\textwidth} % \includegraphics[height=.13\textheight]{imagens/logo_eng}
+      \includegraphics[height=.13\textheight]{imagens/logo_eng}
     \end{minipage}
     \par
-    \vspace{.25\textheight}
+    \vspace{.1\textheight}
     %% Título do trabalho
     \begin{center}
-      \begin{minipage}[c]{.8\textwidth}
+    % \fbox{ %% HINT: o comando fbox evidencia qual a área reservada pro título
+     \begin{minipage}[c][.4\textheight][c]{.9\textwidth}
         {\centering\Huge\bfseries\lsstyle\@title\unskip\strut\par} % TODO: o tamanho Huge é menor do que o usado no modelo, deixamos assim?
       \end{minipage}
+      % }
     \end{center}
-    \vspace{.3\textheight}
+    \vspace{.05\textheight}
     % Autor e orientador
     \begin{flushright}
       {\large\itshape Autor: \@author\unskip\strut\\[.3cm]}
@@ -91,3 +97,23 @@
 \end{titlepage}
 \makeatother
 }
+
+%% Formatação de seção, subseção...
+\titleformat*{\section}{\Large\bfseries}
+\titleformat*{\subsection}{\large\bfseries}
+\titleformat*{\subsubsection}{\large\itshape}
+\titleformat*{\paragraph}{\normalsize\bfseries}
+\titleformat*{\subparagraph}{\normalsize\itshape}
+\newcommand{\sectionbreak}{\clearpage}
+
+%% Bibliografia
+%  https://gking.harvard.edu/files/natnotes2.pdf
+\bibliographystyle{humanbio} % TODO: dá pra escolher um estilo melhor que esse
+\setcitestyle{authoryear,open={(},close={)},aysep={,}}
+\renewcommand\bibsection{\section{\refname}}
+%% TODO: o estilo da bibliografia não está mudando, independente do escolhido
+
+%% Abreviações e símbolos
+\makeglossaries
+
+%% Configuração das seções do preâmbulo
