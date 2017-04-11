@@ -1,0 +1,50 @@
+% !TEX root = exemplo.tex
+% !TEX program = lualatex
+
+\documentclass{automatex}
+
+\usepackage{lipsum}
+
+\title{Titulo do trabalho de conclusao de curso}
+\author{Nome do autor}
+\supervisor{Nome do orientador}
+
+\begin{document}
+
+\maketitle
+
+\section{Introducao}
+
+\lipsum[1-2]
+\begin{equation}
+  a = \dfrac{1}{2}\;\int_x^y f(t)\; dt
+\end{equation}
+
+\lipsum[24-26]
+
+\subsection{Motivacoes}
+
+Aqui eu quero citar uma figura, por exemplo a Figura~\ref{fig:ufrgs}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.5\textwidth]{imagens/logo_ufrgs}
+  \label{fig:ufrgs}
+  \caption{UFRGS, a maior do Estado}
+\end{figure}
+
+\newpage
+
+\section{Revisao bibliografica}
+
+\lipsum[10]
+
+\subsection{Revisao do assunto 1}
+
+\lipsum[11]
+
+\subsubsection{Revisao do topico 1}
+
+\lipsum[12]
+
+\end{document}
