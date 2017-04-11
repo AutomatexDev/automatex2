@@ -6,8 +6,28 @@
 \usepackage{lipsum}
 
 \title{Título do trabalho de conclusão de curso}
+\shorttitle{Título do trabalho de conclusão de curso}
 \author{Nome do autor}
 \supervisor{Nome do orientador}
+
+% Abreviações
+\newacronym{vant}{VANT}{Veículo Aéreo Não Tripulado}
+\newacronym{imu}{IMU}{\emph{Inertial Measurement Unit}}
+\newacronym{uart}{UART}{\emph{Universal Asynchronous Receiver Transmitter}}
+
+% Símbolos:
+\newglossaryentry{angvel}{
+  name = $\Omega$ ,
+  description = Velocidade angular,
+}
+\newglossaryentry{linvel}{
+  name = ${V}$ ,
+  description = Velocidade linear,
+}
+\newglossaryentry{euler}{
+  name = $\Phi$ ,
+  description = Ângulos de Euler: \emph{roll} ($\phi$); \emph{pitch} ($\theta$) e \emph{yaw} ($\psi$),
+}
 
 \begin{document}
 
@@ -16,10 +36,42 @@
 % TODO: a numeração tem que estar definida no próprio .cls. Como fazer isso?
 \pagenumbering{roman}
 \setcounter{page}{1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Páginas iniciais
+%%%%%%%%%%%%%%%%%%%%%%%%%%
 \tableofcontents
+
+\section*{Agradecimentos}
+\addcontentsline{toc}{section}{\numberline{}Agradecimentos}
+Obrigado.
 \newpage
 
+\addcontentsline{toc}{section}{\numberline{}Resumo}
+\begin{abstract}
+  Tudo resumido.
+\end{abstract}
+\newpage
+
+\addcontentsline{toc}{section}{\numberline{}\listfigurename}
+\listoffigures
+\newpage
+\addcontentsline{toc}{section}{\numberline{}\listtablename}
+\listoftables
+\newpage
+
+\addcontentsline{toc}{section}{\numberline{}Lista de Abreviaturas e Siglas}
+\printglossary[type=\acronymtype,title=Lista de Abreviaturas e Siglas]
+\newpage
+\addcontentsline{toc}{section}{\numberline{}Lista de Simbolos}
+\printglossary[title=Lista de Simbolos]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Início do documentos
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introdução}
+
+%% Define numeração de página 1,2,3
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
@@ -28,20 +80,33 @@
   a = \dfrac{1}{2}\;\int_x^y f(t)\; dt
 \end{equation}
 
+Aqui podemos usar todas as abreviaturas \gls{uart}, \gls{imu} e \gls{vant}; e mesmo
+alguns símbolos \gls{angvel}, \gls{linvel} e \gls{euler}.
+
 \lipsum[24-26]
 
-\subsection{Motivacoes}
+\subsection{Motivações}
 
 Aqui eu quero citar uma figura, por exemplo a Figura~\ref{fig:ufrgs}.
 
-\begin{figure}[h]
+\begin{figure}
   \centering
-  \includegraphics[width=.5\textwidth]{imagens/logo_ufrgs}
-  \label{fig:ufrgs}
+  \includegraphics[width=.4\textwidth]{imagens/logo_ufrgs}
   \caption{UFRGS, a maior do Estado}
+  \label{fig:ufrgs}
 \end{figure}
 
-\newpage
+\lipsum[13]
+
+E assim eu cito a Figura~\ref{fig:ee}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.3\textwidth]{imagens/logo_eng}
+  \caption{A Escola de Engenharia da UFRGS}
+  \label{fig:ee}
+\end{figure}
+
 
 \section{Revisão bibliográfica}
 
@@ -54,5 +119,23 @@ Aqui eu quero citar uma figura, por exemplo a Figura~\ref{fig:ufrgs}.
 \subsubsection{Revisão do tópico 1}
 
 \lipsum[12]
+
+\section{Citações}
+
+Para respeitar o modelo das citações, é necessário usar o pacote {\tt natbib} que disponibiliza
+os seguintes tipos de citação
+\begin{itemize}
+  \item \textbackslash{cite} \cite{small}.
+  \item \textbackslash{citet} \citet{small}.
+  \item \textbackslash{citep} \citep{small}.
+  \item \textbackslash{citealt} \citealt{small}.
+  \item \textbackslash{citealp} \citealp{small}.
+\end{itemize}
+
+Assim, se quisermos dizer que \citealp{big}, fez alguma coisa, temos que usar o comando {\tt \textbackslash{citealp}},
+enquanto que para uma citação indireta usamos o comando {\tt \textbackslash{citep}} \citep{big}.
+
+%% Bibliografia
+\bibliography{biblio}
 
 \end{document}

@@ -2,4 +2,15 @@
 *.aux
 *.out
 *.toc
+*.bbl
+*.blg
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls*
+*.ist
+*.lof
+*.lot
 exemplo*
