@@ -5,7 +5,7 @@
 
 \usepackage{lipsum}
 
-\title{Titulo do trabalho de conclusao de curso}
+\title{Título do trabalho de conclusão de curso}
 \author{Nome do autor}
 \supervisor{Nome do orientador}
 
@@ -13,7 +13,15 @@
 
 \maketitle
 
-\section{Introducao}
+% TODO: a numeração tem que estar definida no próprio .cls. Como fazer isso?
+\pagenumbering{roman}
+\setcounter{page}{1}
+\tableofcontents
+\newpage
+
+\section{Introdução}
+\pagenumbering{arabic}
+\setcounter{page}{1}
 
 \lipsum[1-2]
 \begin{equation}
@@ -35,15 +43,15 @@ Aqui eu quero citar uma figura, por exemplo a Figura~\ref{fig:ufrgs}.
 
 \newpage
 
-\section{Revisao bibliografica}
+\section{Revisão bibliográfica}
 
 \lipsum[10]
 
-\subsection{Revisao do assunto 1}
+\subsection{Revisão do assunto 1}
 
 \lipsum[11]
 
-\subsubsection{Revisao do topico 1}
+\subsubsection{Revisão do tópico 1}
 
 \lipsum[12]
 

@@ -6,9 +6,9 @@
 
 % https://en.wikibooks.org/wiki/LaTeX/Document_Structure#Document_classes
 %% Pacotes de linguagem pt-br
-\RequirePackage[utf8]{inputenc}
+\RequirePackage{luatextra}
 \RequirePackage[brazil]{babel}
-\RequirePackage[T1]{fontenc}
+\defaultfontfeatures{Ligatures=TeX}
 
 %% Pacotes de simbolos matemáticos
 \RequirePackage{amsmath}
