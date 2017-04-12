@@ -11,18 +11,10 @@
 
 %% Personalização da fonte
 %  catálogo de fontes em LaTeX em http://www.tug.dk/FontCatalogue/
-\RequirePackage{fontspec}
-\RequirePackage{unicode-math}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
 \RequirePackage[brazil]{babel}
-\setmainfont[Path=./fonts/,
-    BoldItalicFont=font_z.ttf,
-    BoldFont      =font_b.ttf,
-    ItalicFont    =font_i.ttf]{font.ttf}   % TODO: caracteres acentuados não estão funcionando
-% \setmathfont[
-%    range=\mathbfsfit/{greek,Greek,latin,Latin},
-%    Path=./fonts/,
-%    Extension=.otf]{./fonts/euler.otf} % TODO: configurar fonte matemática para negrito e itálico
-%                                       % TODO: encontrar uma fonte matemática que pareça com a fonte de texto
+\usepackage{cmbright}           % Font: Computer Modern Bright
 
 %% Pacotes de referências e figuras
 \RequirePackage{natbib}       % define referências bibliográficas para usar com bibtex
@@ -31,7 +23,7 @@
 \RequirePackage{parskip}      % espaço extra entre parágrafos
 % \RequirePackage{flafter}      % figura depois da citação
 % \RequirePackage{hyperref}     % destaca links, citações e referências cruzadas
-% \usepackage{calc}           % TESTE: é necessário para o comando fbox
+% \usepackage{calc}             % TESTE: é necessário para o comando fbox
 
 %% Formatação e layout
 \RequirePackage[top=1in, bottom=1.8in, left=1in, right=1in]{geometry}

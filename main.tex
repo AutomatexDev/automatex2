@@ -10,7 +10,7 @@
 \author{Nome do autor}
 \supervisor{Nome do orientador}
 
-% Abreviações
+% Abreviaturas
 \newacronym{vant}{VANT}{Veículo Aéreo Não Tripulado}
 \newacronym{imu}{IMU}{\emph{Inertial Measurement Unit}}
 \newacronym{uart}{UART}{\emph{Universal Asynchronous Receiver Transmitter}}
@@ -55,11 +55,16 @@ Obrigado.
 
 \addcontentsline{toc}{section}{\numberline{}\listfigurename}
 \listoffigures
+\newpage
+
 \addcontentsline{toc}{section}{\numberline{}\listtablename}
 \listoftables
+\newpage
 
 \addcontentsline{toc}{section}{\numberline{}Lista de Abreviaturas e Siglas}
 \printglossary[type=\acronymtype,title=Lista de Abreviaturas e Siglas]
+\newpage
+
 \addcontentsline{toc}{section}{\numberline{}Lista de Simbolos}
 \printglossary[title=Lista de Simbolos]
 
@@ -76,6 +81,9 @@ Obrigado.
 \begin{equation}
   a = \dfrac{1}{2}\;\int_x^y f(t)\; dt
 \end{equation}
+
+Aqui podemos usar todas as abreviaturas \gls{uart}, \gls{imu} e \gls{vant}; e mesmo
+alguns símbolos \gls{angvel}, \gls{linvel} e \gls{euler}.
 
 \lipsum[24-26]
 
