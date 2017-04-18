@@ -18,3 +18,8 @@ A classe `automatex` utiliza alguns pacotes específicos para garantir a sua for
 * `amsmath`, `amsfonts`, `amssymb`: símbolos matemáticos
 * `fontspec`, `unicode-math`: permitem a utilização de fontes locais, obrigam a utilização do `lualatex`
 * `geometry`, `microtype`, `fancyhdr`: pacotes especiais para definir o layout do documento
+
+No Linux, se sugere instalar o pacote `texlive-full`, que garante que todas essas dependências sejam satisfeitas, com algum comando do tipo
+```bash
+sudo apt-get install texlive-full
+```
