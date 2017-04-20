@@ -31,63 +31,43 @@
 
 \begin{document}
 
-\maketitle
-
-% TODO: a numeração tem que estar definida no próprio .cls. Como fazer isso?
-\pagenumbering{roman}
-\setcounter{page}{1}
+\maketitle % TODO: tem como dispensar esse comando, tipo redefinindo o ambiente "document"
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Páginas iniciais
 %%%%%%%%%%%%%%%%%%%%%%%%%%
-\tableofcontents
-
-\section*{Agradecimentos}
-\addcontentsline{toc}{section}{\numberline{}Agradecimentos}
-Obrigado.
-\newpage
-
-\addcontentsline{toc}{section}{\numberline{}Resumo}
-\begin{abstract}
-  Tudo resumido.
-\end{abstract}
-\newpage
-
-\addcontentsline{toc}{section}{\numberline{}\listfigurename}
-\listoffigures
-\newpage
-\addcontentsline{toc}{section}{\numberline{}\listtablename}
-\listoftables
-\newpage
-
-\addcontentsline{toc}{section}{\numberline{}Lista de Abreviaturas e Siglas}
-\printglossary[type=\acronymtype,title=Lista de Abreviaturas e Siglas]
-\newpage
-\addcontentsline{toc}{section}{\numberline{}Lista de Simbolos}
-\printglossary[title=Lista de Simbolos]
+% TODO: modificiar o aquivo de classe para que os agradecimentos e o resumo sejam impressos
+%       1. no local adequado com o texto definido no preâmbulo
+%       2. somente se os comandos forem executados no preâmbulo, caso contrário nada é impresso
+%          isso pode ser feito definindo por exemplo alguns booleanos e depois usando condições if/else
+% \begin{agradecimentos}
+%   Obrigado.
+% \end{agradecimentos}
+% \begin{resumo}
+%   Tudo resumido.
+% \end{resumo}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Início do documentos
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introdução}
 
-%% Define numeração de página 1,2,3
-\pagenumbering{arabic}
-\setcounter{page}{1}
-
-\lipsum[1-2]
+Este é o texto de introdução. Este arquivo serve para mostrar um pouco quais são as particularidades dos documentos com a classe \automatex.
 \begin{equation}
   a = \dfrac{1}{2}\;\int_x^y f(t)\; dt
+  \label{eq:eq1}
 \end{equation}
 
-Aqui podemos usar todas as abreviaturas \gls{uart}, \gls{imu} e \gls{vant}; e mesmo
-alguns símbolos \gls{angvel}, \gls{linvel} e \gls{euler}.
+\subsection{Abreviaturas e símbolos}
 
-\lipsum[24-26]
+Podemos usar todas as abreviaturas definidas no preâmbulo do documento como \gls{uart}, \gls{imu} e \gls{vant}. Da mesma forma podemos citar os símbolos \gls{angvel}, \gls{linvel} e \gls{euler}.
+
+Para que o pacote de glossário funcione, é necessário compilar o arquivo \verb+.tex+, rodar o comando \verb+makeglossaries+, para enfim recompilar o arquivo \verb+.tex+.
 
 \subsection{Motivações}
 
 Aqui eu quero citar uma figura, por exemplo a Figura~\ref{fig:ufrgs}.
+E assim eu cito a Figura~\ref{fig:ee}.
 
 \begin{figure}
   \centering
@@ -96,10 +76,6 @@ Aqui eu quero citar uma figura, por exemplo a Figura~\ref{fig:ufrgs}.
   \label{fig:ufrgs}
 \end{figure}
 
-\lipsum[13]
-
-E assim eu cito a Figura~\ref{fig:ee}.
-
 \begin{figure}
   \centering
   \includegraphics[width=.3\textwidth]{imagens/logo_eng}
@@ -107,6 +83,23 @@ E assim eu cito a Figura~\ref{fig:ee}.
   \label{fig:ee}
 \end{figure}
 
+Da mesma forma podemos citar tabelas, como a Tabela~\ref{tab:exemplo}.
+
+\begin{table}
+   \begin{center}
+     \begin{tabular}{||c c c c||}
+       \hline
+       Col1 & Col2 & Col2 & Col3 \\ \hline\hline
+       1 & 6 & 87837 & 787 \\ \hline
+       2 & 7 & 78 & 5415 \\ \hline
+       3 & 545 & 778 & 7507 \\ \hline
+       4 & 545 & 18744 & 7560 \\ \hline
+       5 & 88 & 788 & 6344 \\ \hline
+    \end{tabular}
+  \end{center}
+  \label{tab:exemplo}
+  \caption{Exemplo de tabela}
+\end{table}
 
 \section{Revisão bibliográfica}
 
@@ -134,6 +127,17 @@ os seguintes tipos de citação
 
 Assim, se quisermos dizer que \citealp{big}, fez alguma coisa, temos que usar o comando {\tt \textbackslash{citealp}},
 enquanto que para uma citação indireta usamos o comando {\tt \textbackslash{citep}} \citep{big}.
+
+\textbf{Importante:} não esquecer de rodar o comando \verb+bibtex+ para gerar as referências bibliográficas (arquivo \verb+.bib+).
+
+Por fim, para garantir que tudo seja devidamente referenciado (tanto bibligrafia, quanto listas) os comandos a serem executados devem ser algo do tipo\footnote{Exatamente, para que as listas de figuras, tabelas, etc., sejam geradas, é necessário compilar o arquivo duas vezes no final}
+\begin{verbatim}
+  pdflatex main
+  makeglossaries main
+  bibtex main.aux
+  pdflatex main
+  pdflatex main
+\end{verbatim}
 
 %% Bibliografia
 \bibliography{biblio}

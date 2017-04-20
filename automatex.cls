@@ -10,38 +10,78 @@
 \RequirePackage{amssymb}
 
 %% Personalização da fonte
-%  catálogo de fontes em LaTeX em http://www.tug.dk/FontCatalogue/
-\RequirePackage{fontspec}
-\RequirePackage{unicode-math}
 \RequirePackage[brazil]{babel}
-\RequirePackage{luatextra}
-\defaultfontfeatures{Ligatures=TeX}
-\setmainfont[Path=./fonts/,
-    BoldItalicFont=font_z.ttf,
-    BoldFont      =font_b.ttf,
-    ItalicFont    =font_i.ttf]{font.ttf}   % TODO: caracteres acentuados não estão funcionando
+% catálogo de fontes em LaTeX em http://www.tug.dk/FontCatalogue/
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{sansmathfonts}
+\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+%%%%% MODIFICAÇÕES TEMPORÁRIAS : descomentar as linhas abaixo para utilizar a fonte original
+% \RequirePackage{fontspec}
+% \RequirePackage{unicode-math}
+% \RequirePackage{luatextra}
+% \defaultfontfeatures{Ligatures=TeX}
+% \setmainfont[Path=./fonts/,
+%     BoldItalicFont=font_z.ttf,
+%     BoldFont      =font_b.ttf,
+%     ItalicFont    =font_i.ttf]{font.ttf}   % TODO: caracteres acentuados não estão funcionando
 % \setmathfont[
 %    range=\mathbfsfit/{greek,Greek,latin,Latin},
 %    Path=./fonts/,
 %    Extension=.otf]{./fonts/euler.otf} % TODO: configurar fonte matemática para negrito e itálico
 %                                       % TODO: encontrar uma fonte matemática que pareça com a fonte de texto
+%%% FIM DAS MODIFICAÇÕES TEMPORÁRIAS
 
 %% Pacotes de referências e figuras
 \RequirePackage{natbib}       % define referências bibliográficas para usar com bibtex
 \RequirePackage{url}          % permite utilização de urls
 \RequirePackage{graphicx}     % inserção de imagens
 \RequirePackage{parskip}      % espaço extra entre parágrafos
-% \RequirePackage{flafter}      % figura depois da citação
-% \RequirePackage{hyperref}     % destaca links, citações e referências cruzadas
-% \usepackage{calc}           % TESTE: é necessário para o comando fbox
+\RequirePackage{flafter}      % figura depois da citação. BUG: causa uma formatação estranha, REVISAR
+% \RequirePackage{hyperref}     % destaca links, citações e referências cruzadas,
+                                % BUG: causa alguns bugs principalmente na quebra de linha dos links
+% \usepackage{calc}             % permite realizar operacoes matematicas no codigo TeX
+                                % é necessário para o comando fbox
 
 %% Formatação e layout
-\RequirePackage[top=1in, bottom=1.8in, left=1in, right=1in]{geometry}
-\RequirePackage[letterspace=100]{microtype}
-\RequirePackage{fancyhdr}
-\RequirePackage{titlesec}
+\RequirePackage[top=1in, bottom=1.8in, left=1in, right=1in]{geometry} % margens
+\RequirePackage[letterspace=100]{microtype}     %
+\RequirePackage{fancyhdr}                       % cabeçalhos e rodapés
+\RequirePackage{titlesec}                       % personalização dos títulos
 \RequirePackage{natbib}                         % bibliografia
 \RequirePackage[acronym]{glossaries}            % lista de abreviações e símbolos
+
+% Títulos em português
+\newcommand{\folhaderostoname}{Folha de Rosto}
+\newcommand{\epigraphname}{Ep\'igrafe}
+\newcommand{\dedicatorianame}{Dedicat\'oria}
+\newcommand{\errataname}{Errata}
+\newcommand{\agradecimentosname}{Agradecimentos}
+\newcommand{\anexoname}{ANEXO}
+\newcommand{\anexosname}{Anexos}
+\newcommand{\apendicename}{AP\^ENDICE}
+\newcommand{\apendicesname}{Ap\^endices}
+\newcommand{\orientadorname}{Orientador:}
+\newcommand{\coorientadorname}{Coorientador:}
+\newcommand{\folhadeaprovacaoname}{Folha de Aprova\c{c}\~ao}
+\newcommand{\resumoname}{Resumo}
+\newcommand{\listadesiglasname}{Lista de Abreviaturas e Siglas}
+\newcommand{\listadesimbolosname}{Lista de S\'imbolos}
+\newcommand{\fontename}{Fonte}
+\newcommand{\notaname}{Nota}
+\newcommand{\automatex}{{\scshape Automa}\TeX}
+
+%% Personalização dos nomes (por enquantos não vamos aplicar)
+% \renewcommand{\bibname}{Refer\^encias}
+% \renewcommand{\indexname}{\'Indice}
+% \renewcommand{\listfigurename}{Lista de ilustra\c{c}\~{o}es}
+% \renewcommand{\listtablename}{Lista de tabelas}
+% %% ajusta nomes usados com a macro \autoref
+% \renewcommand{\pageautorefname}{p\'agina}
+% \renewcommand{\sectionautorefname}{se{\c c}\~ao}
+% \renewcommand{\subsectionautorefname}{subse{\c c}\~ao}
+% \renewcommand{\subsubsectionautorefname}{subse{\c c}\~ao}
+% \renewcommand{\paragraphautorefname}{subse{\c c}\~ao}
 
 %% Comandos e variáveis personalizadas
 \newcommand*{\supervisor}[1]{\gdef\@supervisor{#1}}
@@ -50,14 +90,65 @@
 \newcommand*{\@shorttitle}{\string\shorttitle}
 
 %% Cabeçalhos e rodapés
-\pagestyle{fancy}                                                           % garante cabeçalho personalizado
-\fancyhead[LE,RO]{\thepage\vspace{.4cm}}                                    % número da página
-\fancyhead[LO]{\itshape Escola de Engenharia/UFRGS - \@author\vspace{.4cm}}
-\fancyhead[RE]{\itshape\@shorttitle\vspace{.4cm}}
+\pagestyle{fancy}                                    % garante cabeçalho personalizado
+\newcommand{\espacocabecalho}{.4cm}                  % vspace após cada opção garante o espaçamento entre os textos e a linha divisória do cabeçalho
+\fancyhead[LE,RO]{\thepage\vspace{\espacocabecalho}} % número da página
+\fancyhead[LO]{\itshape Escola de Engenharia/UFRGS - \@author\vspace{\espacocabecalho}}
+\fancyhead[RE]{\itshape\@shorttitle\vspace{\espacocabecalho}}
 \fancyfoot[C]{ }
-% vspace após cada opção garante o espaçamento entre os textos e a linha divisória do cabeçalho
 
-\renewcommand{\maketitle}{ % folha de rosto
+%% Formatação de seção, subseção...
+\titleformat*{\section}{\Large\bfseries}
+\titleformat*{\subsection}{\large\bfseries}
+\titleformat*{\subsubsection}{\large\itshape}
+\titleformat*{\paragraph}{\normalsize\bfseries}
+\titleformat*{\subparagraph}{\normalsize\itshape}
+\newcommand{\sectionbreak}{\clearpage}
+
+%% Bibliografia
+%  https://gking.harvard.edu/files/natnotes2.pdf
+\bibliographystyle{humanbio} % TODO: dá pra escolher um estilo melhor que esse
+\setcitestyle{authoryear,open={(},close={)},aysep={,}}
+%% TODO: o estilo da bibliografia não está mudando, independente do escolhido
+
+%% Ambientes personalizados
+% Agradecimentos
+\newenvironment{agradecimentos}[1][\agradecimentosname]
+{\section*{\agradecimentosname} \addcontentsline{toc}{section}{\numberline{}\agradecimentosname}}
+{\newpage}
+% Resumo
+\newenvironment{resumo}[1][\resumoname]
+{\section*{\resumoname} \addcontentsline{toc}{section}{\numberline{}\resumoname}}
+{\newpage}
+
+%% Itens que devem aparecer no Sumário
+\renewcommand\bibsection{\section{\refname}}
+\renewcommand\listoffigures{ %
+    \section*{\listfigurename}
+    \addcontentsline{toc}{section}{\numberline{}\listfigurename}
+    \@starttoc{lof}%
+    \newpage
+}
+\renewcommand\listoftables{ %
+    \section*{\listtablename}
+    \addcontentsline{toc}{section}{\numberline{}\listtablename}
+    \@starttoc{lot}%
+    \newpage
+}
+
+%% Abreviações e símbolos
+\makeglossaries
+\newcommand{\simboloseabreviacoes}{
+  \addcontentsline{toc}{section}{\numberline{}\listadesiglasname}
+  \printglossary[type=\acronymtype,title=\listadesiglasname]
+  \newpage
+  \addcontentsline{toc}{section}{\numberline{}\listadesimbolosname}
+  \printglossary[title=\listadesimbolosname]
+  \newpage
+}
+
+%%% --- Folha de rosto e páginas iniciais
+\renewcommand{\maketitle}{
   \begin{titlepage}
     \makeatletter
     \begin{minipage}[c]{.2\textwidth}
@@ -96,26 +187,26 @@
     \begin{center}
       \normalsize Porto Alegre, \@date\par
     \end{center}
-\end{titlepage}
-\makeatother
+  \end{titlepage}
+  %% fim da folha de capa
+  \makeatother
+  %% Páginas iniciais obrigatórias
+  % numeração i, ii, iii... comançando na página i
+  \pagenumbering{roman}
+  \setcounter{page}{1}
+  \tableofcontents
+  %% TODO: fazer com que as duas páginas a seguir só sejam impressas se algum comando no main.tex seja executado
+  \begin{agradecimentos}
+    Obrigado.
+  \end{agradecimentos}
+  \begin{resumo}
+    Tudo resumido.
+  \end{resumo}
+  \listoffigures
+  \listoftables
+  \simboloseabreviacoes
+  \makeatother
+  % numeração 1, 2, 3... voltando à pagina número 1
+  \pagenumbering{arabic}
+  \setcounter{page}{1}
 }
-
-%% Formatação de seção, subseção...
-\titleformat*{\section}{\Large\bfseries}
-\titleformat*{\subsection}{\large\bfseries}
-\titleformat*{\subsubsection}{\large\itshape}
-\titleformat*{\paragraph}{\normalsize\bfseries}
-\titleformat*{\subparagraph}{\normalsize\itshape}
-\newcommand{\sectionbreak}{\clearpage}
-
-%% Bibliografia
-%  https://gking.harvard.edu/files/natnotes2.pdf
-\bibliographystyle{humanbio} % TODO: dá pra escolher um estilo melhor que esse
-\setcitestyle{authoryear,open={(},close={)},aysep={,}}
-\renewcommand\bibsection{\section{\refname}}
-%% TODO: o estilo da bibliografia não está mudando, independente do escolhido
-
-%% Abreviações e símbolos
-\makeglossaries
-
-%% Configuração das seções do preâmbulo
