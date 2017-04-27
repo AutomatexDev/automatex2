@@ -37,11 +37,13 @@
 \RequirePackage{url}          % permite utilização de urls
 \RequirePackage{graphicx}     % inserção de imagens
 \RequirePackage{parskip}      % espaço extra entre parágrafos
-\RequirePackage{flafter}      % figura depois da citação. BUG: causa uma formatação estranha, REVISAR
+\RequirePackage{float}      % figura depois da citação. BUG: causa uma formatação estranha, REVISAR
 % \RequirePackage{hyperref}     % destaca links, citações e referências cruzadas,
                                 % BUG: causa alguns bugs principalmente na quebra de linha dos links
 % \usepackage{calc}             % permite realizar operacoes matematicas no codigo TeX
                                 % é necessário para o comando fbox
+\RequirePackage{etoolbox} % operações lógicas
+
 
 %% Formatação e layout
 \RequirePackage[top=1in, bottom=1.8in, left=1in, right=1in]{geometry} % margens
@@ -111,15 +113,54 @@
 \setcitestyle{authoryear,open={(},close={)},aysep={,}}
 %% TODO: o estilo da bibliografia não está mudando, independente do escolhido
 
+%% Operações logicas
+\newbool{agradecimentodefinido}
+\newcommand{\textodeagradecimento}{Obrigado.}
+\newcommand{\agradecimentos}[1]{%
+  \booltrue{agradecimentodefinido}
+  \renewcommand{\textodeagradecimento}{#1}
+}
+
+\newbool{resumodefinido}
+\newcommand{\textoderesumo}{Tudo resumido.}
+\newcommand{\resumo}[1]{%
+  \booltrue{resumodefinido}
+  \renewcommand{\textoderesumo}{#1}
+}
+
 %% Ambientes personalizados
 % Agradecimentos
-\newenvironment{agradecimentos}[1][\agradecimentosname]
-{\section*{\agradecimentosname} \addcontentsline{toc}{section}{\numberline{}\agradecimentosname}}
-{\newpage}
+\newenvironment{secaoagradecimentos}[1][\agradecimentosname]
+{
+  \section*{\agradecimentosname}
+  \addcontentsline{toc}{section}{\numberline{}\agradecimentosname}
+}{
+  \newpage
+}
 % Resumo
-\newenvironment{resumo}[1][\resumoname]
-{\section*{\resumoname} \addcontentsline{toc}{section}{\numberline{}\resumoname}}
-{\newpage}
+\newenvironment{secaoresumo}[1][\resumoname]
+{
+  \section*{\resumoname}
+  \addcontentsline{toc}{section}{\numberline{}\resumoname}
+}{
+  \newpage
+}
+% Figura
+\newenvironment{figura}
+{
+  \begin{figure}[H]
+    \centering
+}{
+  \end{figure}
+}
+% Figura
+\newenvironment{tabela}
+{
+  \begin{table}[H]
+    \centering
+}{
+  \end{table}
+}
 
 %% Itens que devem aparecer no Sumário
 \renewcommand\bibsection{\section{\refname}}
@@ -196,12 +237,19 @@
   \setcounter{page}{1}
   \tableofcontents
   %% TODO: fazer com que as duas páginas a seguir só sejam impressas se algum comando no main.tex seja executado
-  \begin{agradecimentos}
-    Obrigado.
-  \end{agradecimentos}
-  \begin{resumo}
-    Tudo resumido.
-  \end{resumo}
+
+  \ifbool{agradecimentodefinido}{
+  \begin{secaoagradecimentos}
+    \textodeagradecimento
+  \end{secaoagradecimentos}}{ % nada
+  }
+
+  \ifbool{resumodefinido}{
+  \begin{secaoresumo}
+    \textoderesumo
+  \end{secaoresumo}}{ % nada
+  }
+
   \listoffigures
   \listoftables
   \simboloseabreviacoes

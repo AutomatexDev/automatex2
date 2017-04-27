@@ -1,5 +1,5 @@
-% !TEX root = exemplo.tex
-% !TEX program = lualatex
+% !TEX root = main.tex
+% !TEX program = pdflatex
 
 \documentclass{automatex}
 
@@ -29,34 +29,19 @@
   description = Ângulos de Euler: \emph{roll} ($\phi$); \emph{pitch} ($\theta$) e \emph{yaw} ($\psi$),
 }
 
+\agradecimentos{Muito obrigado por tudo ter funcionado.}
+\resumo{A página de resumo -- assim como de agradecimentos -- só aparece quando o comando \texttt{resumo} for posto no preâmbulo do arquivo, caso contrário essa página não é incluída}
+
 \begin{document}
 
 \maketitle % TODO: tem como dispensar esse comando, tipo redefinindo o ambiente "document"
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Páginas iniciais
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TODO: modificiar o aquivo de classe para que os agradecimentos e o resumo sejam impressos
-%       1. no local adequado com o texto definido no preâmbulo
-%       2. somente se os comandos forem executados no preâmbulo, caso contrário nada é impresso
-%          isso pode ser feito definindo por exemplo alguns booleanos e depois usando condições if/else
-% \begin{agradecimentos}
-%   Obrigado.
-% \end{agradecimentos}
-% \begin{resumo}
-%   Tudo resumido.
-% \end{resumo}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Início do documentos
+%% Início do documento
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introdução}
 
 Este é o texto de introdução. Este arquivo serve para mostrar um pouco quais são as particularidades dos documentos com a classe \automatex.
-\begin{equation}
-  a = \dfrac{1}{2}\;\int_x^y f(t)\; dt
-  \label{eq:eq1}
-\end{equation}
 
 \subsection{Abreviaturas e símbolos}
 
@@ -64,30 +49,51 @@ Podemos usar todas as abreviaturas definidas no preâmbulo do documento como \gl
 
 Para que o pacote de glossário funcione, é necessário compilar o arquivo \verb+.tex+, rodar o comando \verb+makeglossaries+, para enfim recompilar o arquivo \verb+.tex+.
 
-\subsection{Motivações}
+\subsection{Usando figuras}
 
-Aqui eu quero citar uma figura, por exemplo a Figura~\ref{fig:ufrgs}.
-E assim eu cito a Figura~\ref{fig:ee}.
+A classe \verb+automatex+ disponibiliza o ambiente ``figura'' que força a figura a ser inserida no ponto enque ela aparece no texto. Por exemplo, se eu quero citar a Figura~\ref{fig:ufrgs} aqui, ela deve ser inserida logo depois deste paragrafo com os comandos
+\begin{verbatim}
+  \begin{figura}
+    \includegraphics[width=.4\textwidth]{imagens/logo_ufrgs}
+    \caption{UFRGS, a maior do Estado}
+    \label{fig:ufrgs}
+  \end{figure}
+\end{verbatim}
 
-\begin{figure}
-  \centering
+\begin{figura}
   \includegraphics[width=.4\textwidth]{imagens/logo_ufrgs}
   \caption{UFRGS, a maior do Estado}
   \label{fig:ufrgs}
-\end{figure}
+\end{figura}
 
-\begin{figure}
-  \centering
+Da mesma forma eu posso incluir outras figuras. E assim eu cito as figuras~\ref{fig:ufrgs}~e~\ref{fig:ee}.
+
+\begin{figura}
   \includegraphics[width=.3\textwidth]{imagens/logo_eng}
   \caption{A Escola de Engenharia da UFRGS}
   \label{fig:ee}
-\end{figure}
+\end{figura}
 
-Da mesma forma podemos citar tabelas, como a Tabela~\ref{tab:exemplo}.
+Da mesma forma podemos citar tabelas, como a Tabela~\ref{tab:exemplo}. Como a legenda das tabelas deve aparecer sobre esta, o comando \verb+\caption+ deve aparecer antes do ambiente \texttt{tabular}.
 
-\begin{table}
-   \begin{center}
-     \begin{tabular}{||c c c c||}
+\begin{tabela}
+  \caption{Exemplo de tabela}
+  \begin{tabular}{||c c c c||}
+     \hline
+     Col1 & Col2 & Col2 & Col3 \\ \hline\hline
+     1 & 6 & 87837 & 787 \\ \hline
+     2 & 7 & 78 & 5415 \\ \hline
+     3 & 545 & 778 & 7507 \\ \hline
+     4 & 545 & 18744 & 7560 \\ \hline
+     5 & 88 & 788 & 6344 \\ \hline
+  \end{tabular}
+  \label{tab:exemplo}
+\end{tabela}
+
+\begin{verbatim}
+  \begin{tabela}
+    \caption{Exemplo de tabela}
+    \begin{tabular}{||c c c c||}
        \hline
        Col1 & Col2 & Col2 & Col3 \\ \hline\hline
        1 & 6 & 87837 & 787 \\ \hline
@@ -96,10 +102,20 @@ Da mesma forma podemos citar tabelas, como a Tabela~\ref{tab:exemplo}.
        4 & 545 & 18744 & 7560 \\ \hline
        5 & 88 & 788 & 6344 \\ \hline
     \end{tabular}
-  \end{center}
-  \label{tab:exemplo}
-  \caption{Exemplo de tabela}
-\end{table}
+    \label{tab:exemplo}
+  \end{tabela}
+\end{verbatim}
+
+\subsubsection{Equações}
+
+Na de mais, apenas para mostrar como que ficam as referências para as equações. A equação de Navier-Stokes, em sua forma geral que eu copiei da Wikipédia, é dada por
+\begin{equation}
+  \rho\frac{D\mathbf{v}}{D t} = -\nabla p + \nabla \cdot\mathbb{T} + \rho\mathbf{f},
+  \label{eq:navier-stokes}
+\end{equation}
+onde $\rho$, $\mathbf{v}$, $\mathbb{T}$ e $\mathbf{f}$ são variáveis que não vêm ao caso.
+
+Ora, a Equação~\ref{eq:navier-stokes} é um exemplo de equação.
 
 \section{Revisão bibliográfica}
 
