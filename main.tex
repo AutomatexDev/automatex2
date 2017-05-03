@@ -1,19 +1,19 @@
 % !TEX root = main.tex
 % !TEX program = pdflatex
 
-\documentclass{automatex}
+\documentclass[ingles]{automatex}
 
 \usepackage{lipsum}
 
-\title{Título do trabalho de conclusão de curso}
-\shorttitle{Título do trabalho de conclusão de curso}
-\author{Nome do autor}
-\supervisor{Nome do orientador}
+\title{Document title}
+\shorttitle{Docuement short title}
+\author{My name}
+\supervisor{Professor's name}
 
 % Abreviações
-\newacronym{vant}{VANT}{Veículo Aéreo Não Tripulado}
-\newacronym{imu}{IMU}{\emph{Inertial Measurement Unit}}
-\newacronym{uart}{UART}{\emph{Universal Asynchronous Receiver Transmitter}}
+\newacronym{uav}{UAV}{Unmanned Aerial Vehicle}
+\newacronym{imu}{IMU}{Inertial Measurement Unit}
+\newacronym{uart}{UART}{Universal Asynchronous Receiver Transmitter}
 
 % Símbolos:
 \newglossaryentry{angvel}{
@@ -29,8 +29,8 @@
   description = Ângulos de Euler: \emph{roll} ($\phi$); \emph{pitch} ($\theta$) e \emph{yaw} ($\psi$),
 }
 
-\agradecimentos{Muito obrigado por tudo ter funcionado.}
-\resumo{A página de resumo -- assim como de agradecimentos -- só aparece quando o comando \texttt{resumo} for posto no preâmbulo do arquivo, caso contrário essa página não é incluída}
+\agradecimentos{I would like to thank everybody.}
+\resumo{This is not a sample abstract.}
 
 \begin{document}
 
@@ -39,13 +39,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Início do documento
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introdução}
+\section{Introduction}
 
-Este é o texto de introdução. Este arquivo serve para mostrar um pouco quais são as particularidades dos documentos com a classe \automatex.
+This is an introductory text. This document provides an outline of how an \automatex{} class file must be organized.
 
-\subsection{Abreviaturas e símbolos}
+\subsection{Abbrevations and symbols}
 
-Podemos usar todas as abreviaturas definidas no preâmbulo do documento como \gls{uart}, \gls{imu} e \gls{vant}. Da mesma forma podemos citar os símbolos \gls{angvel}, \gls{linvel} e \gls{euler}.
+It is possible to use any abbreviation previously defined in the preamble, just like \gls{uart}, \gls{imu} and \gls{uav}, as well as the symbols \gls{angvel}, \gls{linvel} and \gls{euler}. Okay, let's say that this is enough of translated text.
 
 Para que o pacote de glossário funcione, é necessário compilar o arquivo \verb+.tex+, rodar o comando \verb+makeglossaries+, para enfim recompilar o arquivo \verb+.tex+.
 

@@ -4,13 +4,60 @@
 % classe base para o novo formato
 \LoadClass[12pt,twoside]{article} % twoside permite que páginas pares e ímpares sejam diferentes
 
+\RequirePackage[brazil, english]{babel}
+%% Personalização da língua
+\DeclareOption{ingles}{
+  \AtEndOfClass{\main@language{english}}
+  % Titulos em ingles TODO: verificar se isso tá certo
+  \newcommand{\folhaderostoname}{Cover Sheet}
+  \newcommand{\epigraphname}{Epigraph}
+  \newcommand{\dedicatorianame}{Acknowledgments}
+  \newcommand{\errataname}{Erratum}
+  \newcommand{\agradecimentosname}{Acknowledgments}
+  \newcommand{\anexoname}{ANNEX}
+  \newcommand{\anexosname}{Annexes}
+  \newcommand{\apendicename}{APPENDIX}
+  \newcommand{\apendicesname}{Appendixes}
+  \newcommand{\autorname}{Author}
+  \newcommand{\orientadorname}{Adviser}
+  \newcommand{\coorientadorname}{Co-adviser}
+  \newcommand{\folhadeaprovacaoname}{Folha de Aprova\c{c}\~ao}
+  \newcommand{\resumoname}{Abstract}
+  \newcommand{\listadesiglasname}{List of Abbreviations}
+  \newcommand{\listadesimbolosname}{List of Symbols}
+  \newcommand{\fontename}{Font}
+  \newcommand{\notaname}{Note}
+}
+\DeclareOption{portugues}{
+  \AtEndOfClass{\main@language{brazil}}
+  % Títulos em português
+  \newcommand{\folhaderostoname}{Folha de Rosto}
+  \newcommand{\epigraphname}{Ep\'igrafe}
+  \newcommand{\dedicatorianame}{Dedicat\'oria}
+  \newcommand{\errataname}{Errata}
+  \newcommand{\agradecimentosname}{Agradecimentos}
+  \newcommand{\anexoname}{ANEXO}
+  \newcommand{\anexosname}{Anexos}
+  \newcommand{\apendicename}{AP\^ENDICE}
+  \newcommand{\apendicesname}{Ap\^endices}
+  \newcommand{\autorname}{Autor}
+  \newcommand{\orientadorname}{Orientador}
+  \newcommand{\coorientadorname}{Coorientador}
+  \newcommand{\folhadeaprovacaoname}{Folha de Aprova\c{c}\~ao}
+  \newcommand{\resumoname}{Resumo}
+  \newcommand{\listadesiglasname}{Lista de Abreviaturas e Siglas}
+  \newcommand{\listadesimbolosname}{Lista de S\'imbolos}
+  \newcommand{\fontename}{Fonte}
+  \newcommand{\notaname}{Nota}
+  }
+\ProcessOptions\relax
+\newcommand{\automatex}{{\scshape Automa}\TeX}
+
 %% Pacotes de simbolos matemáticos
 \RequirePackage{amsmath}
 \RequirePackage{amsfonts}
 \RequirePackage{amssymb}
 
-%% Personalização da fonte
-\RequirePackage[brazil]{babel}
 % catálogo de fontes em LaTeX em http://www.tug.dk/FontCatalogue/
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
@@ -52,26 +99,6 @@
 \RequirePackage{titlesec}                       % personalização dos títulos
 \RequirePackage{natbib}                         % bibliografia
 \RequirePackage[acronym]{glossaries}            % lista de abreviações e símbolos
-
-% Títulos em português
-\newcommand{\folhaderostoname}{Folha de Rosto}
-\newcommand{\epigraphname}{Ep\'igrafe}
-\newcommand{\dedicatorianame}{Dedicat\'oria}
-\newcommand{\errataname}{Errata}
-\newcommand{\agradecimentosname}{Agradecimentos}
-\newcommand{\anexoname}{ANEXO}
-\newcommand{\anexosname}{Anexos}
-\newcommand{\apendicename}{AP\^ENDICE}
-\newcommand{\apendicesname}{Ap\^endices}
-\newcommand{\orientadorname}{Orientador:}
-\newcommand{\coorientadorname}{Coorientador:}
-\newcommand{\folhadeaprovacaoname}{Folha de Aprova\c{c}\~ao}
-\newcommand{\resumoname}{Resumo}
-\newcommand{\listadesiglasname}{Lista de Abreviaturas e Siglas}
-\newcommand{\listadesimbolosname}{Lista de S\'imbolos}
-\newcommand{\fontename}{Fonte}
-\newcommand{\notaname}{Nota}
-\newcommand{\automatex}{{\scshape Automa}\TeX}
 
 %% Personalização dos nomes (por enquantos não vamos aplicar)
 % \renewcommand{\bibname}{Refer\^encias}
@@ -220,8 +247,8 @@
     \vspace{.05\textheight}
     % Autor e orientador
     \begin{flushright}
-      {\large\itshape Autor: \@author\unskip\strut\\[.3cm]}
-      {\normalsize\itshape Orientador: \@supervisor\unskip\strut}
+      {\large\itshape \autorname: \@author\unskip\strut\\[.3cm]}
+      {\normalsize\itshape \orientadorname: \@supervisor\unskip\strut}
     \end{flushright}
     % Cidade e data
     \vfill
