@@ -61,8 +61,7 @@
 % catálogo de fontes em LaTeX em http://www.tug.dk/FontCatalogue/
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
-\RequirePackage{sansmathfonts}
-\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+\RequirePackage{cmbright}
 %%%%% MODIFICAÇÕES TEMPORÁRIAS : descomentar as linhas abaixo para utilizar a fonte original
 % \RequirePackage{fontspec}
 % \RequirePackage{unicode-math}
@@ -84,7 +83,7 @@
 \RequirePackage{url}          % permite utilização de urls
 \RequirePackage{graphicx}     % inserção de imagens
 \RequirePackage{parskip}      % espaço extra entre parágrafos
-\RequirePackage{float}      % figura depois da citação. BUG: causa uma formatação estranha, REVISAR
+% \RequirePackage{float}      % figura depois da citação. BUG: causa uma formatação estranha, REVISAR
 % \RequirePackage{hyperref}     % destaca links, citações e referências cruzadas,
                                 % BUG: causa alguns bugs principalmente na quebra de linha dos links
 % \usepackage{calc}             % permite realizar operacoes matematicas no codigo TeX
@@ -99,18 +98,7 @@
 \RequirePackage{titlesec}                       % personalização dos títulos
 \RequirePackage{natbib}                         % bibliografia
 \RequirePackage[acronym]{glossaries}            % lista de abreviações e símbolos
-
-%% Personalização dos nomes (por enquantos não vamos aplicar)
-% \renewcommand{\bibname}{Refer\^encias}
-% \renewcommand{\indexname}{\'Indice}
-% \renewcommand{\listfigurename}{Lista de ilustra\c{c}\~{o}es}
-% \renewcommand{\listtablename}{Lista de tabelas}
-% %% ajusta nomes usados com a macro \autoref
-% \renewcommand{\pageautorefname}{p\'agina}
-% \renewcommand{\sectionautorefname}{se{\c c}\~ao}
-% \renewcommand{\subsectionautorefname}{subse{\c c}\~ao}
-% \renewcommand{\subsubsectionautorefname}{subse{\c c}\~ao}
-% \renewcommand{\paragraphautorefname}{subse{\c c}\~ao}
+\RequirePackage{titlesec}
 
 %% Comandos e variáveis personalizadas
 \newcommand*{\supervisor}[1]{\gdef\@supervisor{#1}}
@@ -133,6 +121,9 @@
 \titleformat*{\paragraph}{\normalsize\bfseries}
 \titleformat*{\subparagraph}{\normalsize\itshape}
 \newcommand{\sectionbreak}{\clearpage}
+\titlespacing*{\subsection}{0pt}{2ex}{1ex}
+\titlespacing*{\subsubsection}{0pt}{1ex}{1ex}
+\titlespacing*{\paragraph}{0pt}{1ex}{1ex}
 
 %% Bibliografia
 %  https://gking.harvard.edu/files/natnotes2.pdf
@@ -175,7 +166,7 @@
 % Figura
 \newenvironment{figura}
 {
-  \begin{figure}[H]
+  \begin{figure}[!htbp]
     \centering
 }{
   \end{figure}
@@ -183,7 +174,7 @@
 % Figura
 \newenvironment{tabela}
 {
-  \begin{table}[H]
+  \begin{table}[!htbp]
     \centering
 }{
   \end{table}
@@ -213,6 +204,15 @@
   \addcontentsline{toc}{section}{\numberline{}\listadesimbolosname}
   \printglossary[title=\listadesimbolosname]
   \newpage
+}
+
+% reduz o espaçamento antes e depois das equações equações
+\makeatletter
+\g@addto@macro\normalsize{%
+  \setlength\abovedisplayskip{0.5ex}
+  \setlength\belowdisplayskip{0.5ex}
+  \setlength\abovedisplayshortskip{0.2ex}
+  \setlength\belowdisplayshortskip{0.2ex}
 }
 
 %%% --- Folha de rosto e páginas iniciais
