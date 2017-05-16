@@ -13,14 +13,21 @@ ou
 \documentclass[ingles]{automatex}
 ```
 
+Para mais informações sobre a sintaxe dos comandos disponíveis, pode-se consultar o [arquivo exemplo](main.pdf).
+
 ### Compilação
 
-O projeto utiliza fontes locais na pasta `./fonts`, o que obriga a utilização do `lualatex` para gerar o arquivo pdf.
+O projeto atualmente não segue exatamente o mesmo estilo de fonte definido no [modelo](modelo_2017_1.pdf), no entanto, a fonte personalizada se encontra mesmo assim na pasta `./fonts`. Para utilizar esta fonte, é obrigatório a utilização do `lualatex` para gerar o arquivo pdf.
 
-Para compilar o arquivo `.tex`, o comando deve ser algo do tipo
+Deixando tudo isso de lado, para compilar o arquivo `main.tex`, por exemplo, os comandos devem seguir algo do tipo
 ```bash
-lualatex main.tex
+pdflatex main
+makeglossaries main
+bibtex main
+pdflatex main
+pdflatex main
 ```
+o que permite gerar todos arquivos auxiliares, de glossário e de bibliografia.
 
 ### Dependências
 
