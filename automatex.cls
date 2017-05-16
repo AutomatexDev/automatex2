@@ -2,7 +2,7 @@
 \ProvidesClass{automatex}[2017/04/10 v0.1 TCC em Eng. de Controle e Automação UFRGS]
 
 % classe base para o novo formato
-\LoadClass[12pt,twoside]{article} % twoside permite que páginas pares e ímpares sejam diferentes
+\LoadClass[11pt,twoside]{article} % twoside permite que páginas pares e ímpares sejam diferentes
 
 \RequirePackage[brazil, english]{babel}
 %% Personalização da língua
@@ -49,7 +49,7 @@
   \newcommand{\listadesimbolosname}{Lista de S\'imbolos}
   \newcommand{\fontename}{Fonte}
   \newcommand{\notaname}{Nota}
-  }
+}
 \ProcessOptions\relax
 \newcommand{\automatex}{{\scshape Automa}\TeX}
 
@@ -84,11 +84,9 @@
 \RequirePackage{graphicx}     % inserção de imagens
 \RequirePackage{parskip}      % espaço extra entre parágrafos
 % \RequirePackage{float}      % figura depois da citação. BUG: causa uma formatação estranha, REVISAR
-% \RequirePackage{hyperref}     % destaca links, citações e referências cruzadas,
-                                % BUG: causa alguns bugs principalmente na quebra de linha dos links
-% \usepackage{calc}             % permite realizar operacoes matematicas no codigo TeX
-                                % é necessário para o comando fbox
-\RequirePackage{etoolbox} % operações lógicas
+% \RequirePackage{hyperref}   % destaca links, citações e referências cruzadas,
+                              % BUG: causa alguns bugs principalmente na quebra de linha dos links
+\RequirePackage{etoolbox}     % operações lógicas
 
 
 %% Formatação e layout
@@ -108,9 +106,9 @@
 
 %% Cabeçalhos e rodapés
 \pagestyle{fancy}                                    % garante cabeçalho personalizado
-\newcommand{\espacocabecalho}{.4cm}                  % vspace após cada opção garante o espaçamento entre os textos e a linha divisória do cabeçalho
+\newcommand{\espacocabecalho}{1ex}                  % vspace após cada opção garante o espaçamento entre os textos e a linha divisória do cabeçalho
 \fancyhead[LE,RO]{\thepage\vspace{\espacocabecalho}} % número da página
-\fancyhead[LO]{\itshape Escola de Engenharia/UFRGS - \@author\vspace{\espacocabecalho}}
+\fancyhead[LO]{\itshape Escola de Engenharia/UFRGS\;{--}\;\@author\vspace{\espacocabecalho}}
 \fancyhead[RE]{\itshape\@shorttitle\vspace{\espacocabecalho}}
 \fancyfoot[C]{ }
 
@@ -124,12 +122,12 @@
 \titlespacing*{\subsection}{0pt}{2ex}{1ex}
 \titlespacing*{\subsubsection}{0pt}{1ex}{1ex}
 \titlespacing*{\paragraph}{0pt}{1ex}{1ex}
+\setlength{\parskip}{1ex}
 
 %% Bibliografia
 %  https://gking.harvard.edu/files/natnotes2.pdf
-\bibliographystyle{humanbio} % TODO: dá pra escolher um estilo melhor que esse
+\bibliographystyle{apecon} % TODO: dá pra escolher um estilo melhor que esse
 \setcitestyle{authoryear,open={(},close={)},aysep={,}}
-%% TODO: o estilo da bibliografia não está mudando, independente do escolhido
 
 %% Operações logicas
 \newbool{agradecimentodefinido}
@@ -149,36 +147,24 @@
 %% Ambientes personalizados
 % Agradecimentos
 \newenvironment{secaoagradecimentos}[1][\agradecimentosname]
-{
-  \section*{\agradecimentosname}
-  \addcontentsline{toc}{section}{\numberline{}\agradecimentosname}
-}{
-  \newpage
-}
+{  \section*{\agradecimentosname}
+   \addcontentsline{toc}{section}{\numberline{}\agradecimentosname}
+}{ \newpage }
 % Resumo
 \newenvironment{secaoresumo}[1][\resumoname]
-{
-  \section*{\resumoname}
-  \addcontentsline{toc}{section}{\numberline{}\resumoname}
-}{
-  \newpage
-}
+{  \section*{\resumoname}
+   \addcontentsline{toc}{section}{\numberline{}\resumoname}
+}{ \newpage }
 % Figura
 \newenvironment{figura}
-{
-  \begin{figure}[!htbp]
-    \centering
-}{
-  \end{figure}
-}
+{  \begin{figure}[!htbp]
+   \centering
+}{ \end{figure} }
 % Figura
 \newenvironment{tabela}
-{
-  \begin{table}[!htbp]
-    \centering
-}{
-  \end{table}
-}
+{  \begin{table}[!htbp]
+   \centering
+}{ \end{table} }
 
 %% Itens que devem aparecer no Sumário
 \renewcommand\bibsection{\section{\refname}}
@@ -204,6 +190,22 @@
   \addcontentsline{toc}{section}{\numberline{}\listadesimbolosname}
   \printglossary[title=\listadesimbolosname]
   \newpage
+}
+
+% apêndices e anexos
+% depois dos comandos \apendices e \anexos, apenas subseções e níveis inferiores são utilizados
+\newcommand{\apendices}{
+  \titlespacing*{\section}{0pt}{16ex}{0ex}
+  \section*{\apendicesname}
+  \addcontentsline{toc}{section}{\numberline{}\apendicesname}
+  \renewcommand{\thesubsection}{\Alph{subsection}}
+}
+
+\newcommand{\anexos}{
+  \titlespacing*{\section}{0pt}{16ex}{0ex}
+  \section*{\anexosname}
+  \addcontentsline{toc}{section}{\numberline{}\anexosname}
+  \renewcommand{\thesubsection}{\Alph{subsection}}
 }
 
 % reduz o espaçamento antes e depois das equações equações
