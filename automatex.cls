@@ -79,12 +79,11 @@
 %%% FIM DAS MODIFICAÇÕES TEMPORÁRIAS
 
 %% Pacotes de referências e figuras
-\RequirePackage{natbib}       % define referências bibliográficas para usar com bibtex
 \RequirePackage{url}          % permite utilização de urls
 \RequirePackage{graphicx}     % inserção de imagens
 \RequirePackage{parskip}      % espaço extra entre parágrafos
 % \RequirePackage{float}      % figura depois da citação. BUG: causa uma formatação estranha, REVISAR
-\RequirePackage{hyperref}   % destaca links, citações e referências cruzadas,
+\RequirePackage{hyperref}     % destaca links, citações e referências cruzadas,
                               % BUG: causa alguns bugs principalmente na quebra de linha dos links
 \RequirePackage{etoolbox}     % operações lógicas
 \RequirePackage{ifoddpage}    % condicional para páginas ímpares, garante o posicionamento correto das páginas iniciais
@@ -95,8 +94,9 @@
 \RequirePackage{fancyhdr}                       % cabeçalhos e rodapés
 \RequirePackage{titlesec}                       % personalização dos títulos
 \RequirePackage{natbib}                         % bibliografia
-\RequirePackage[acronym]{glossaries}            % lista de abreviações e símbolos
+\RequirePackage[acronyms, nogroupskip, style=super]{glossaries}           % lista de abreviações e símbolos
 \RequirePackage{titlesec}
+\RequirePackage{setspace}
 
 %% Comandos e variáveis personalizadas
 \newcommand*{\supervisor}[1]{\gdef\@supervisor{#1}}
@@ -127,7 +127,7 @@
 
 %% Bibliografia
 %  https://gking.harvard.edu/files/natnotes2.pdf
-\bibliographystyle{apecon} % TODO: dá pra escolher um estilo melhor que esse
+\bibliographystyle{elsarticle-harv} % TODO: dá pra escolher um estilo melhor que esse
 \setcitestyle{authoryear,open={(},close={)},aysep={,}}
 
 %% Operações logicas
@@ -184,12 +184,15 @@
 
 %% Abreviações e símbolos
 \makeglossaries
+\setlength{\glsdescwidth}{0.7\textwidth}
 \newcommand{\simboloseabreviacoes}{
   \addcontentsline{toc}{section}{\numberline{}\listadesiglasname}
-  \printglossary[type=\acronymtype,title=\listadesiglasname]
+  {\setstretch{1.4}
+   \printglossary[type=\acronymtype,title=\listadesiglasname]}
   \newpage
   \addcontentsline{toc}{section}{\numberline{}\listadesimbolosname}
-  \printglossary[title=\listadesimbolosname]
+  {\setstretch{1.4}
+    \printglossary[title=\listadesimbolosname]}
   \newpage
 }
 
