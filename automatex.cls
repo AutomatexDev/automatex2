@@ -86,7 +86,16 @@
 \RequirePackage{hyperref}     % destaca links, citações e referências cruzadas,
                               % BUG: causa alguns bugs principalmente na quebra de linha dos links
 \RequirePackage{etoolbox}     % operações lógicas
-\RequirePackage{ifoddpage}    % condicional para páginas ímpares, garante o posicionamento correto das páginas iniciais
+\RequirePackage{changepage}   % condicional para páginas ímpares, garante o posicionamento correto das páginas iniciais
+\strictpagecheck
+\newcommand*\ifthispageodd{ %
+  \checkoddpage
+  \ifoddpage
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi
+}
 
 %% Formatação e layout
 \RequirePackage[top=1in, bottom=1.8in, left=1in, right=1in]{geometry} % margens
@@ -291,10 +300,7 @@
   \makeatother
   % página em branco se termina em página ímpar
   % garante a coerência do cabeçalho
-  \checkoddpage
-  \ifoddpage
-    \newpage\null\newpage
-  \fi
+  \ifthispageodd{}{\qquad\newpage}
   % numeração 1, 2, 3... voltando à pagina número 1
   % cabeçalho à esquerda
   \pagenumbering{arabic}
