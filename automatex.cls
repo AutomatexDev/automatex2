@@ -79,7 +79,7 @@
 %%% FIM DAS MODIFICAÇÕES TEMPORÁRIAS
 
 %% Pacotes de referências e figuras
-\RequirePackage{url}          % permite utilização de urls
+\RequirePackage[hyphens]{url}          % permite utilização de urls
 \RequirePackage{graphicx}     % inserção de imagens
 \RequirePackage{parskip}      % espaço extra entre parágrafos
 % \RequirePackage{float}      % figura depois da citação. BUG: causa uma formatação estranha, REVISAR
@@ -167,12 +167,12 @@
 }{ \newpage }
 % Figura
 \newenvironment{figura}
-{  \begin{figure}[!htbp]
+{  \begin{figure}[!h]
    \centering
 }{ \end{figure} }
 % Figura
 \newenvironment{tabela}
-{  \begin{table}[!htbp]
+{  \begin{table}[!h]
    \centering
 }{ \end{table} }
 
@@ -212,6 +212,7 @@
   \section*{\apendicesname}
   \addcontentsline{toc}{section}{\numberline{}\apendicesname}
   \renewcommand{\thesubsection}{\Alph{subsection}}
+  \setcounter{subsection}{0}
 }
 
 \newcommand{\anexos}{
@@ -219,6 +220,7 @@
   \section*{\anexosname}
   \addcontentsline{toc}{section}{\numberline{}\anexosname}
   \renewcommand{\thesubsection}{\Alph{subsection}}
+  \setcounter{subsection}{0}
 }
 
 % reduz o espaçamento antes e depois das equações equações
@@ -297,10 +299,10 @@
   \listoffigures
   \listoftables
   \simboloseabreviacoes
-  \makeatother
   % página em branco se termina em página ímpar
   % garante a coerência do cabeçalho
-  \ifthispageodd{}{\qquad\newpage}
+  \ifthispageodd{\newpage\qquad\newpage}{}
+  \makeatother
   % numeração 1, 2, 3... voltando à pagina número 1
   % cabeçalho à esquerda
   \pagenumbering{arabic}
