@@ -23,6 +23,7 @@
   \newcommand{\coorientadorname}{Co-adviser}
   \newcommand{\folhadeaprovacaoname}{Folha de Aprova\c{c}\~ao}
   \newcommand{\resumoname}{Abstract}
+  \newcommand{\myabstractname}{Resumo}
   \newcommand{\listadesiglasname}{List of Abbreviations}
   \newcommand{\listadesimbolosname}{List of Symbols}
   \newcommand{\fontename}{Font}
@@ -45,6 +46,7 @@
   \newcommand{\coorientadorname}{Coorientador}
   \newcommand{\folhadeaprovacaoname}{Folha de Aprova\c{c}\~ao}
   \newcommand{\resumoname}{Resumo}
+  \newcommand{\myabstractname}{Abstract}
   \newcommand{\listadesiglasname}{Lista de Abreviaturas e Siglas}
   \newcommand{\listadesimbolosname}{Lista de S\'imbolos}
   \newcommand{\fontename}{Fonte}
@@ -154,6 +156,13 @@
   \renewcommand{\textoderesumo}{#1}
 }
 
+\newbool{abstractdefinido}
+\newcommand{\textodeabstract}{Abstract.}
+\newcommand{\myabstract}[1]{ % abstract already exists
+  \booltrue{abstractdefinido}
+  \renewcommand{\textodeabstract}{#1}
+}
+
 %% Ambientes personalizados
 % Agradecimentos
 \newenvironment{secaoagradecimentos}[1][\agradecimentosname]
@@ -164,6 +173,11 @@
 \newenvironment{secaoresumo}[1][\resumoname]
 {  \section*{\resumoname}
    \addcontentsline{toc}{section}{\numberline{}\resumoname}
+}{ \newpage }
+% abstract
+\newenvironment{secaoabstract}[1][\myabstractname]
+{  \section*{\myabstractname}
+   \addcontentsline{toc}{section}{\numberline{}\myabstractname}
 }{ \newpage }
 % Figura
 \newenvironment{figura}
@@ -295,14 +309,20 @@
     \textoderesumo
   \end{secaoresumo}}{ % nada
   }
+  % abstract
+  \ifbool{abstractdefinido}{
+  \begin{secaoabstract}
+    \textodeabstract
+  \end{secaoabstract}}{ % nada
+  }
   % listas
   \listoffigures
   \listoftables
   \simboloseabreviacoes
+  \makeatother
   % página em branco se termina em página ímpar
   % garante a coerência do cabeçalho
-  \ifthispageodd{\newpage\qquad\newpage}{}
-  \makeatother
+  \ifthispageodd{}{\newpage\qquad\newpage}
   % numeração 1, 2, 3... voltando à pagina número 1
   % cabeçalho à esquerda
   \pagenumbering{arabic}
