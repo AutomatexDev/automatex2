@@ -89,15 +89,6 @@
                               % BUG: causa alguns bugs principalmente na quebra de linha dos links
 \RequirePackage{etoolbox}     % operações lógicas
 \RequirePackage{changepage}   % condicional para páginas ímpares, garante o posicionamento correto das páginas iniciais
-\strictpagecheck
-\newcommand*\ifthispageodd{ %
-  \checkoddpage
-  \ifoddpage
-    \expandafter\@firstoftwo
-  \else
-    \expandafter\@secondoftwo
-  \fi
-}
 
 %% Formatação e layout
 \RequirePackage[top=1in, bottom=1.8in, left=1in, right=1in]{geometry} % margens
@@ -110,10 +101,16 @@
 \RequirePackage{setspace}
 
 %% Comandos e variáveis personalizadas
+\makeatletter
 \newcommand*{\supervisor}[1]{\gdef\@supervisor{#1}}
 \newcommand*{\@supervisor}{\string\supervisor}
 \newcommand*{\shorttitle}[1]{\gdef\@shorttitle{#1}}
 \newcommand*{\@shorttitle}{\string\shorttitle}
+% Seção começando em página ímpar
+\let\oldsection\section
+\def\section{\clearevenpage\oldsection}
+\def\clearevenpage{\clearpage\if@twoside \ifodd\c@page {}
+  \else\hbox{}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
 
 %% Cabeçalhos e rodapés
 \pagestyle{fancy}                                    % garante cabeçalho personalizado
@@ -217,6 +214,7 @@
   {\setstretch{1.4}
     \printglossary[title=\listadesimbolosname]}
   \newpage
+  \clearevenpage
 }
 
 % apêndices e anexos
@@ -238,7 +236,6 @@
 }
 
 % reduz o espaçamento antes e depois das equações equações
-\makeatletter
 \g@addto@macro\normalsize{%
   \setlength\abovedisplayskip{0.5ex}
   \setlength\belowdisplayskip{0.5ex}
@@ -249,7 +246,6 @@
 %%% --- Folha de rosto e páginas iniciais
 \renewcommand{\maketitle}{
   \begin{titlepage}
-    \makeatletter
     \begin{minipage}[c]{.2\textwidth}
       \centering
       \includegraphics[height=.13\textheight]{imagens/logo_ufrgs}
@@ -290,11 +286,13 @@
   %% fim da folha de capa
   \makeatother
   % folha em branco, verso da capa
-  \newpage\null\thispagestyle{empty}\newpage
-  %% Páginas iniciais obrigatórias
+  \newpage\null
+  \thispagestyle{empty}
   % numeração i, ii, iii... comançando na página i
   \pagenumbering{roman}
-  \setcounter{page}{1}
+  \setcounter{page}{0}
+  \newpage
+  %% Páginas iniciais obrigatórias
   % sumário
   \tableofcontents
   % agradecimentos
@@ -320,9 +318,6 @@
   \listoftables
   \simboloseabreviacoes
   \makeatother
-  % página em branco se termina em página ímpar
-  % garante a coerência do cabeçalho
-  \ifthispageodd{}{\newpage\qquad\newpage}
   % numeração 1, 2, 3... voltando à pagina número 1
   % cabeçalho à esquerda
   \pagenumbering{arabic}
