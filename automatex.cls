@@ -2,7 +2,7 @@
 \ProvidesClass{automatex}[2017/04/10 v0.1 TCC em Eng. de Controle e Automação UFRGS]
 
 % classe base para o novo formato
-\LoadClass[11pt,twoside]{article} % twoside permite que páginas pares e ímpares sejam diferentes
+\LoadClass[12pt,twoside]{article} % twoside permite que páginas pares e ímpares sejam diferentes
 
 \RequirePackage[brazil, english]{babel}
 %% Personalização da língua
@@ -63,22 +63,7 @@
 % catálogo de fontes em LaTeX em http://www.tug.dk/FontCatalogue/
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
-\RequirePackage{cmbright}
-%%%%% MODIFICAÇÕES TEMPORÁRIAS : descomentar as linhas abaixo para utilizar a fonte original
-% \RequirePackage{fontspec}
-% \RequirePackage{unicode-math}
-% \RequirePackage{luatextra}
-% \defaultfontfeatures{Ligatures=TeX}
-% \setmainfont[Path=./fonts/,
-%     BoldItalicFont=font_z.ttf,
-%     BoldFont      =font_b.ttf,
-%     ItalicFont    =font_i.ttf]{font.ttf}   % TODO: caracteres acentuados não estão funcionando
-% \setmathfont[
-%    range=\mathbfsfit/{greek,Greek,latin,Latin},
-%    Path=./fonts/,
-%    Extension=.otf]{./fonts/euler.otf} % TODO: configurar fonte matemática para negrito e itálico
-%                                       % TODO: encontrar uma fonte matemática que pareça com a fonte de texto
-%%% FIM DAS MODIFICAÇÕES TEMPORÁRIAS
+\RequirePackage{times}          % melhor fonte
 
 %% Pacotes de referências e figuras
 \RequirePackage[hyphens]{url}          % permite utilização de urls
