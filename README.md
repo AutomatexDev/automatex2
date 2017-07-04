@@ -2,18 +2,9 @@
 
 Modelo de Trabalho de Conclusão de Curso da Engenharia de Controle e Automação da Universidade Federal do Rio Grande do Sul (UFRGS), versão de 2017/1, baseado no modelo disponível no site da [comgrad-cca](http://www.ufrgs.br/comgrad-cca/formularios/tcc/modelo-tcc-word-1/at_download/file).
 
-### Idioma
+### Formatação e comandos
 
-A classe aceita dois idiomas: português e inglês. Assim, é necessário definir no início do documento qual dos idiomas vai ser utilizado por
-```tex
-\documentclass[portugues]{automatex}
-```
-ou
-```tex
-\documentclass[ingles]{automatex}
-```
-
-Para mais informações sobre a sintaxe dos comandos disponíveis, pode-se consultar o [arquivo exemplo](main.pdf).
+Para informações sobre os comandos, opções de formatação e mais dicas, pode-se consultar o [arquivo exemplo](main.pdf).
 
 ### Compilação
 
@@ -35,3 +26,24 @@ A classe `automatex` utiliza alguns pacotes específicos para garantir a sua for
 ```bash
 sudo apt-get install texlive-full
 ```
+
+#### Lista dos pacotes utilizados pela classe automatex
+
+* `amsmath`
+* `amsfonts`
+* `amssymb`
+* `inputenc`: entrada de acentos, caracteres especiais
+* `fontenc`: fonte
+* `times`: fonte serifada
+* `txfonts`: fonte matemática
+* `url`: permite utilização de urls
+* `hyperref`: destaca links, citações e referências cruzadas,
+* `graphicx`: inserção de imagens
+* `parskip`: espaço extra entre parágrafos
+* `caption`: personaliza o espaço entre a legenda e a figura/fonte
+* `microtype`: faz com que o título tenha um espaço maior entre as letras
+* `fancyhdr`: cabeçalhos e rodapés
+* `titlesec`: personalização dos títulos
+* `setspace`: permite aumentar o espaço entre os títulos das seções
+* `natbib`: bibliografia
+* `geometry`: margens

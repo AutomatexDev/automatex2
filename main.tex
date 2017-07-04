@@ -42,40 +42,34 @@
 
 Este é o texto de introdução. Este arquivo serve para mostrar um pouco quais são as particularidades dos documentos com a classe \automatex.
 
-\subsection{Abreviaturas e símbolos}
-
-Podemos usar todas as abreviaturas definidas no preâmbulo do documento como \gls{uart}, \gls{imu} e \gls{vant}. Da mesma forma podemos citar os símbolos \gls{angvel}, \gls{linvel} e \gls{euler}.
-
-Para que o pacote de glossário funcione, é necessário compilar o arquivo \verb+.tex+, rodar o comando \verb+makeglossaries+, para enfim recompilar o arquivo \verb+.tex+.
-
 \subsection{Usando figuras}
 
-A classe \verb+automatex+ disponibiliza o ambiente ``figura'' que força a figura a ser inserida no ponto enque ela aparece no texto. Por exemplo, se eu quero citar a Figura~\ref{fig:ufrgs} aqui, ela deve ser inserida logo depois deste paragrafo com os comandos
-\begin{verbatim}
-  \begin{figura}
-    \includegraphics[width=.4\textwidth]{imagens/logo_ufrgs}
-    \caption{UFRGS, a maior do Estado}
-    \label{fig:ufrgs}
-  \end{figure}
-\end{verbatim}
+Os ambientes \verb+figure+ e \verb+table+ já são configurados para que estes insiram figuras e tabelas no ponto em que estas aparecem no texto. Por exemplo, se eu quero citar a Figura~\ref{fig:ee} aqui, ela deve ser inserida logo depois deste paragrafo com os comandos
 
-\begin{figura}
-  \includegraphics[width=.4\textwidth]{imagens/logo_ufrgs}
-  \caption{UFRGS, a maior do Estado}
-  \label{fig:ufrgs}
-\end{figura}
+\begin{minipage}{\textwidth}
+  \begin{verbatim}
+    \begin{figure}
+      \includegraphics[width=.3\textwidth]{imagens/logo_eng}
+      \caption{A Escola de Engenharia da UFRGS}
+      \label{fig:ee}
+      \source{\url{http://www.ufrgs.br/engenharia/}}
+    \end{figure}
+  \end{verbatim}
+\end{minipage}
 
-Da mesma forma eu posso incluir outras figuras. E assim eu cito as figuras~\ref{fig:ufrgs}~e~\ref{fig:ee}.
 
-\begin{figura}
+\begin{figure}
   \includegraphics[width=.3\textwidth]{imagens/logo_eng}
   \caption{A Escola de Engenharia da UFRGS}
   \label{fig:ee}
-\end{figura}
+  \source{\url{http://www.ufrgs.br/engenharia/}}
+\end{figure}
 
-Da mesma forma podemos citar tabelas, como a Tabela~\ref{tab:exemplo}. Como a legenda das tabelas deve aparecer sobre esta, o comando \verb+\caption+ deve aparecer antes do ambiente \texttt{tabular}.
+Além disto, o comando personalizado \verb+\source+ permite a citação da fonte da figura. O padrão é incluí-lo depois do comando \verb+\label+ para garantir que este não cause nenhum problema no sumário.
 
-\begin{tabela}
+Da mesma forma que para as figuras, podemos citar tabelas, como a Tabela~\ref{tab:exemplo}. Como a legenda das tabelas deve aparecer sobre esta, o comando \verb+\caption+ deve aparecer antes do ambiente \texttt{tabular}.
+
+\begin{table}
   \caption{Exemplo de tabela}
   \begin{tabular}{||c c c c||}
      \hline
@@ -87,22 +81,35 @@ Da mesma forma podemos citar tabelas, como a Tabela~\ref{tab:exemplo}. Como a le
      5 & 88 & 788 & 6344 \\ \hline
   \end{tabular}
   \label{tab:exemplo}
-\end{tabela}
+\end{table}
 
+\begin{minipage}{\textwidth}
+  \begin{verbatim}
+    \begin{table}
+      \caption{Exemplo de tabela}
+      \begin{tabular}{||c c c c||}
+         \hline
+         Col1 & Col2 & Col2 & Col3 \\ \hline\hline
+         1 & 6 & 87837 & 787 \\ \hline
+         2 & 7 & 78 & 5415 \\ \hline
+         3 & 545 & 778 & 7507 \\ \hline
+         4 & 545 & 18744 & 7560 \\ \hline
+         5 & 88 & 788 & 6344 \\ \hline
+      \end{tabular}
+      \label{tab:exemplo}
+    \end{table}
+  \end{verbatim}
+\end{minipage}
+
+\subsection{Opção de língua}
+
+A classe \verb+automatex+ aceita dois idiomas: português e inglês. Assim, é necessário definir no início do documento qual dos idiomas vai ser utilizado por
 \begin{verbatim}
-  \begin{tabela}
-    \caption{Exemplo de tabela}
-    \begin{tabular}{||c c c c||}
-       \hline
-       Col1 & Col2 & Col2 & Col3 \\ \hline\hline
-       1 & 6 & 87837 & 787 \\ \hline
-       2 & 7 & 78 & 5415 \\ \hline
-       3 & 545 & 778 & 7507 \\ \hline
-       4 & 545 & 18744 & 7560 \\ \hline
-       5 & 88 & 788 & 6344 \\ \hline
-    \end{tabular}
-    \label{tab:exemplo}
-  \end{tabela}
+  \documentclass[portugues]{automatex}
+\end{verbatim}
+ou
+\begin{verbatim}
+  \documentclass[ingles]{automatex}
 \end{verbatim}
 
 \subsubsection{Equações}
@@ -114,7 +121,50 @@ Na de mais, apenas para mostrar como que ficam as referências para as equaçõe
 \end{equation}
 onde $\rho$, $\mathbf{v}$, $\mathbb{T}$ e $\mathbf{f}$ são variáveis que não vêm ao caso.
 
-Ora, a Equação~\ref{eq:navier-stokes} é um exemplo de equação.
+\subsection{Abreviaturas e símbolos}
+
+Podemos usar todas as abreviaturas definidas no preâmbulo do documento como \gls{uart}, \gls{imu} e \gls{vant}. Da mesma forma podemos citar os símbolos \gls{angvel}, \gls{linvel} e \gls{euler}.
+
+Para que o pacote de glossário funcione, é necessário compilar o arquivo \verb+.tex+, rodar o comando \verb+makeglossaries+, para enfim recompilar o arquivo \verb+.tex+.
+
+\subsection{Citações bibliográficas}
+
+Para respeitar o modelo das citações, é necessário usar o pacote \verb+natbib+ que disponibiliza os seguintes tipos de citação
+\begin{itemize}
+  \item \textbackslash{cite} \cite{small}.
+  \item \textbackslash{citet} \citet{small}.
+  \item \textbackslash{citep} \citep{small}.
+  \item \textbackslash{citealt} \citealt{small}.
+  \item \textbackslash{citealp} \citealp{small}.
+\end{itemize}
+
+Assim, se quisermos dizer que \citealp{big}, fez alguma coisa, temos que usar o comando \verb+\citealp+,
+enquanto que para uma citação indireta usamos o comando \verb+\citep+ \citep{big}.
+
+\subsection{Anexos e apêndices}
+
+Os comandos \verb+\anexos+ e \verb+\apendices+ marcam o início das seções de anexos e apêndices, respectivamente. A partir destes comandos, deve-se usar apenas subseções e níveis inferiores. Anexos e apêndices são ordenados por letras A, B, C... Ou seja, a numeração é reiniciada toda vez que um desses comandos é inserido.
+
+\subsection{Considerações finais}
+
+Para configurar as informações da capa, temos quatro entradas básicas
+\begin{enumerate}
+  \item \verb+\title+: o título do trabalho
+  \item \verb+\shorttitle+: o título resumido que aparece no cabeçalho das páginas
+  \item \verb+\author+: autor do trabalho
+  \item \verb+\supervisor+: o professor orientador
+\end{enumerate}
+
+\textbf{Importante:} não esquecer de rodar os comandos \verb+makeglossaries+ e \verb+bibtex+ para gerar o glossário e as referências bibliográficas (arquivo \verb+.bib+).
+
+Por fim, para garantir que tudo seja devidamente referenciado (tanto bibligrafia, quanto listas) os comandos a serem executados devem ser algo do tipo\footnote{Exatamente, para que as listas de figuras, tabelas, etc., sejam geradas, é necessário compilar o arquivo duas vezes no final}
+\begin{verbatim}
+  pdflatex main
+  makeglossaries main
+  bibtex main.aux
+  pdflatex main
+  pdflatex main
+\end{verbatim}
 
 \section{Revisão bibliográfica}
 
@@ -127,32 +177,6 @@ Ora, a Equação~\ref{eq:navier-stokes} é um exemplo de equação.
 \subsubsection{Revisão do tópico 1}
 
 \lipsum[12]
-
-\section{Citações}
-
-Para respeitar o modelo das citações, é necessário usar o pacote {\tt natbib} que disponibiliza
-os seguintes tipos de citação
-\begin{itemize}
-  \item \textbackslash{cite} \cite{small}.
-  \item \textbackslash{citet} \citet{small}.
-  \item \textbackslash{citep} \citep{small}.
-  \item \textbackslash{citealt} \citealt{small}.
-  \item \textbackslash{citealp} \citealp{small}.
-\end{itemize}
-
-Assim, se quisermos dizer que \citealp{big}, fez alguma coisa, temos que usar o comando {\tt \textbackslash{citealp}},
-enquanto que para uma citação indireta usamos o comando {\tt \textbackslash{citep}} \citep{big}.
-
-\textbf{Importante:} não esquecer de rodar o comando \verb+bibtex+ para gerar as referências bibliográficas (arquivo \verb+.bib+).
-
-Por fim, para garantir que tudo seja devidamente referenciado (tanto bibligrafia, quanto listas) os comandos a serem executados devem ser algo do tipo\footnote{Exatamente, para que as listas de figuras, tabelas, etc., sejam geradas, é necessário compilar o arquivo duas vezes no final}
-\begin{verbatim}
-  pdflatex main
-  makeglossaries main
-  bibtex main.aux
-  pdflatex main
-  pdflatex main
-\end{verbatim}
 
 %% Bibliografia
 \bibliography{biblio}

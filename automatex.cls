@@ -1,11 +1,10 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{automatex}[2017/04/10 v0.1 TCC em Eng. de Controle e Automação UFRGS]
 
-% classe base para o novo formato
-\LoadClass[11pt,twoside]{article} % twoside permite que páginas pares e ímpares sejam diferentes
-
+%% Classe base para o novo formato: article
+\LoadClass[12pt,twoside]{article}           % twoside permite que páginas pares e ímpares sejam diferentes
 \RequirePackage[brazil, english]{babel}
-%% Personalização da língua
+%% Configuração da língua
 \DeclareOption{ingles}{
   \AtEndOfClass{\main@language{english}}
   % Titulos em ingles TODO: verificar se isso tá certo
@@ -19,14 +18,14 @@
   \newcommand{\apendicename}{APPENDIX}
   \newcommand{\apendicesname}{Appendixes}
   \newcommand{\autorname}{Author}
-  \newcommand{\orientadorname}{Adviser}
+  \newcommand{\orientadorname}{Advisor}
   \newcommand{\coorientadorname}{Co-adviser}
   \newcommand{\folhadeaprovacaoname}{Folha de Aprova\c{c}\~ao}
   \newcommand{\resumoname}{Abstract}
   \newcommand{\myabstractname}{Resumo}
   \newcommand{\listadesiglasname}{List of Abbreviations}
   \newcommand{\listadesimbolosname}{List of Symbols}
-  \newcommand{\fontename}{Font}
+  \newcommand{\fontename}{Source}
   \newcommand{\notaname}{Note}
 }
 \DeclareOption{portugues}{
@@ -53,6 +52,8 @@
   \newcommand{\notaname}{Nota}
 }
 \ProcessOptions\relax
+
+%% Comando especial para o logo do AutomaTEX
 \newcommand{\automatex}{{\scshape Automa}\TeX}
 
 %% Pacotes de simbolos matemáticos
@@ -60,53 +61,36 @@
 \RequirePackage{amsfonts}
 \RequirePackage{amssymb}
 
+%% Personalização da fonte: Times, 12pt
 % catálogo de fontes em LaTeX em http://www.tug.dk/FontCatalogue/
-\RequirePackage[utf8]{inputenc}
-\RequirePackage[T1]{fontenc}
-\RequirePackage{cmbright}
-%%%%% MODIFICAÇÕES TEMPORÁRIAS : descomentar as linhas abaixo para utilizar a fonte original
-% \RequirePackage{fontspec}
-% \RequirePackage{unicode-math}
-% \RequirePackage{luatextra}
-% \defaultfontfeatures{Ligatures=TeX}
-% \setmainfont[Path=./fonts/,
-%     BoldItalicFont=font_z.ttf,
-%     BoldFont      =font_b.ttf,
-%     ItalicFont    =font_i.ttf]{font.ttf}   % TODO: caracteres acentuados não estão funcionando
-% \setmathfont[
-%    range=\mathbfsfit/{greek,Greek,latin,Latin},
-%    Path=./fonts/,
-%    Extension=.otf]{./fonts/euler.otf} % TODO: configurar fonte matemática para negrito e itálico
-%                                       % TODO: encontrar uma fonte matemática que pareça com a fonte de texto
-%%% FIM DAS MODIFICAÇÕES TEMPORÁRIAS
+\RequirePackage[utf8]{inputenc} % entrada de acentos, caracteres especiais
+\RequirePackage[T1]{fontenc}    % fonte
+\RequirePackage{times}          % fonte serifada
+\RequirePackage{txfonts}        % fonte matemática
 
-%% Pacotes de referências e figuras
-\RequirePackage[hyphens]{url}          % permite utilização de urls
-\RequirePackage{graphicx}     % inserção de imagens
-\RequirePackage{parskip}      % espaço extra entre parágrafos
-% \RequirePackage{float}      % figura depois da citação. BUG: causa uma formatação estranha, REVISAR
-\RequirePackage{hyperref}     % destaca links, citações e referências cruzadas,
-                              % BUG: causa alguns bugs principalmente na quebra de linha dos links
-\RequirePackage{etoolbox}     % operações lógicas
-\RequirePackage{changepage}   % condicional para páginas ímpares, garante o posicionamento correto das páginas iniciais
-
-%% Formatação e layout
+%% Pacotes para formatação do documento
+\RequirePackage[hyphens]{url}               % permite utilização de urls
+\RequirePackage{hyperref}                   % destaca links, citações e referências cruzadas,
+\RequirePackage{graphicx}                   % inserção de imagens
+\RequirePackage{parskip}                    % espaço extra entre parágrafos
+\RequirePackage[skip=1ex]{caption}          % personaliza o espaço entre a legenda e a figura/fonte
+\RequirePackage[letterspace=100]{microtype} % faz com que o título tenha um espaço maior entre as letras
+\RequirePackage{fancyhdr}                   % cabeçalhos e rodapés
+\RequirePackage{titlesec}                   % personalização dos títulos
+\RequirePackage{setspace}                   % permite aumentar o espaço entre os títulos das seções
+\RequirePackage{natbib}                     % bibliografia
 \RequirePackage[top=1in, bottom=1.8in, left=1in, right=1in]{geometry} % margens
-\RequirePackage[letterspace=100]{microtype}     %
-\RequirePackage{fancyhdr}                       % cabeçalhos e rodapés
-\RequirePackage{titlesec}                       % personalização dos títulos
-\RequirePackage{natbib}                         % bibliografia
-\RequirePackage[acronyms, nogroupskip, style=super]{glossaries}           % lista de abreviações e símbolos
-\RequirePackage{titlesec}
-\RequirePackage{setspace}
+\RequirePackage[acronyms, nogroupskip, style=super]{glossaries}       % lista de abreviações e símbolos
 
 %% Comandos e variáveis personalizadas
+%  \makeatletter define o início da utilização dos macros "\@"
 \makeatletter
 \newcommand*{\supervisor}[1]{\gdef\@supervisor{#1}}
 \newcommand*{\@supervisor}{\string\supervisor}
 \newcommand*{\shorttitle}[1]{\gdef\@shorttitle{#1}}
 \newcommand*{\@shorttitle}{\string\shorttitle}
-% Seção começando em página ímpar
+
+%% Seção começando em página ímpar
 \let\oldsection\section
 \def\section{\clearevenpage\oldsection}
 \def\clearevenpage{\clearpage\if@twoside \ifodd\c@page {}
@@ -138,6 +122,12 @@
 \bibliographystyle{elsarticle-harv} % TODO: dá pra escolher um estilo melhor que esse
 \setcitestyle{authoryear,open={(},close={)},aysep={,}}
 
+%% Personalização/formatação das figuras e tabelas
+\def\fps@figure{!h}
+\def\fps@table{!h}
+\g@addto@macro\@floatboxreset\centering
+\newcommand{\source}[1]{\caption*{\fontename: {#1}}}
+
 %% Operações logicas
 \newbool{agradecimentodefinido}
 \newcommand{\textodeagradecimento}{Obrigado.}
@@ -161,33 +151,23 @@
 }
 
 %% Ambientes personalizados
-% Agradecimentos
+%  Agradecimentos
 \newenvironment{secaoagradecimentos}[1][\agradecimentosname]
 {  \section*{\agradecimentosname}
    \addcontentsline{toc}{section}{\numberline{}\agradecimentosname}
 }{ \newpage }
-% Resumo
+%  Resumo
 \newenvironment{secaoresumo}[1][\resumoname]
 {  \section*{\resumoname}
    \addcontentsline{toc}{section}{\numberline{}\resumoname}
 }{ \newpage }
-% abstract
+%  Abstract
 \newenvironment{secaoabstract}[1][\myabstractname]
 {  \section*{\myabstractname}
    \addcontentsline{toc}{section}{\numberline{}\myabstractname}
 }{ \newpage }
-% Figura
-\newenvironment{figura}
-{  \begin{figure}[!h]
-   \centering
-}{ \end{figure} }
-% Figura
-\newenvironment{tabela}
-{  \begin{table}[!h]
-   \centering
-}{ \end{table} }
 
-%% Itens que devem aparecer no Sumário
+%% Fazemos com que os itens a seguir apareçam no sumário
 \renewcommand\bibsection{\section{\refname}}
 \renewcommand\listoffigures{ %
     \section*{\listfigurename}
@@ -217,8 +197,8 @@
   \clearevenpage
 }
 
-% apêndices e anexos
-% depois dos comandos \apendices e \anexos, apenas subseções e níveis inferiores são utilizados
+%% Apêndices e anexos
+%  depois dos comandos \apendices e \anexos, apenas subseções e níveis inferiores são utilizados
 \newcommand{\apendices}{
   \titlespacing*{\section}{0pt}{16ex}{0ex}
   \section*{\apendicesname}
@@ -235,7 +215,7 @@
   \setcounter{subsection}{0}
 }
 
-% reduz o espaçamento antes e depois das equações equações
+%% Reduz o espaço antes e depois das equações
 \g@addto@macro\normalsize{%
   \setlength\abovedisplayskip{0.5ex}
   \setlength\belowdisplayskip{0.5ex}
@@ -243,7 +223,9 @@
   \setlength\belowdisplayshortskip{0.2ex}
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% --- Folha de rosto e páginas iniciais
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewcommand{\maketitle}{
   \begin{titlepage}
     \begin{minipage}[c]{.2\textwidth}
@@ -283,16 +265,18 @@
       \normalsize Porto Alegre, \@date\par
     \end{center}
   \end{titlepage}
-  %% fim da folha de capa
+  %% Fim da folha de capa e da utilização dos macros (\makeatother)
   \makeatother
-  % folha em branco, verso da capa
+  %% Folha em branco: verso da capa
   \newpage\null
   \thispagestyle{empty}
-  % numeração i, ii, iii... comançando na página i
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %% Páginas iniciais obrigatórias
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %% Numeração i, ii, iii... comançando na página i
   \pagenumbering{roman}
   \setcounter{page}{0}
   \newpage
-  %% Páginas iniciais obrigatórias
   % sumário
   \tableofcontents
   % agradecimentos
