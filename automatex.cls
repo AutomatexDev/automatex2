@@ -81,6 +81,9 @@
 \RequirePackage{natbib}                     % bibliografia
 \RequirePackage[top=1in, bottom=1.8in, left=1in, right=1in]{geometry} % margens
 \RequirePackage[acronyms, nogroupskip, style=super]{glossaries}       % lista de abreviações e símbolos
+\RequirePackage{indentfirst}                % indenta primeiro parágrafo depois de título
+\setlength\parindent{24pt}                  % e todos os que vem em seguida
+
 
 %% Comandos e variáveis personalizadas
 %  \makeatletter define o início da utilização dos macros "\@"
