@@ -93,11 +93,12 @@
 \newcommand*{\shorttitle}[1]{\gdef\@shorttitle{#1}}
 \newcommand*{\@shorttitle}{\string\shorttitle}
 
+%% Adiciona folhas de rosto
 %% Seção começando em página ímpar
-\let\oldsection\section
-\def\section{\clearevenpage\oldsection}
-\def\clearevenpage{\clearpage\if@twoside \ifodd\c@page {}
-  \else\hbox{}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+%\let\oldsection\section
+%\def\section{\clearevenpage\oldsection}
+%\def\clearevenpage{\clearpage\if@twoside \ifodd\c@page {}
+%  \else\hbox{}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
 
 %% Cabeçalhos e rodapés
 \pagestyle{fancy}                                    % garante cabeçalho personalizado
